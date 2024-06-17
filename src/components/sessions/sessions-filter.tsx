@@ -36,13 +36,16 @@ export default function SessionsFilter() {
                         data-set={selectedFilter === filter.id ? 'selected' : 'not-selected'}
                         onClick={() => toggleSelectedFilter(filter.id)}
                         className="
-                            px-3 bg-stone-50
-                            text-sm text-stone-700
-                            border border-stone-300 rounded-full
+                            px-3 bg-stone-50 dark:bg-stone-900
+                            text-sm text-stone-700 dark:text-stone-300
+                            border border-stone-300 dark:border-stone-700 rounded-full
                             transition-colors focus:outline-none
-                            focus-visible:border-blue-300
+                            focus-visible:border-blue-300 dark:focus-visible:border-blue-300
+                            hover:text-blue-300 hover:border-blue-300
+                            dark:hover:text-blue-300 dark:hover:border-blue-300
                             data-[set=selected]:bg-white
-                            data-[set=selected]:text-blue-400 data-[set=selected]:border-blue-400">
+                            data-[set=selected]:text-blue-400 data-[set=selected]:border-blue-400
+                            dark:data-[set=selected]:text-blue-400 dark:data-[set=selected]:border-blue-400">
                         {filter.text}
                     </button>
                 )
@@ -53,11 +56,12 @@ export default function SessionsFilter() {
                     type="text"
                     placeholder="Faça sua pesquisa"
                     className="
-                        w-72 py-1 px-3 bg-stone-50
-                        text-stone-700 placeholder:text-stone-500
-                        border border-stone-300 rounded-full
+                        w-72 py-1 px-3 bg-stone-50 dark:bg-stone-900
+                        text-stone-700 dark:text-stone-300 placeholder:text-stone-500
+                        border border-stone-300 dark:border-stone-700 rounded-full
                         transition-colors focus:outline-none
-                        focus-visible:bg-white focus-visible:border-blue-400" />
+                        focus-visible:bg-white focus-visible:border-blue-400
+                        dark:focus-visible:border-blue-400" />
 
                 <button
                     type="submit"
@@ -65,8 +69,8 @@ export default function SessionsFilter() {
                     className="
                         absolute right-4
                         bg-transparent text-stone-500
-                        transition-colors hover:text-stone-600
-                        focus:outline-none focus-visible:text-stone-700">
+                        transition-colors hover:text-stone-600 dark:hover:text-stone-400
+                        focus:outline-none focus-visible:text-stone-700 dark:focus-visible:text-stone-400">
                     <LuSearch />
                 </button>
             </div>

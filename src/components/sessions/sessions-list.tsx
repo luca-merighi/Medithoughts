@@ -45,11 +45,11 @@ export default function SessionsList() {
                     data-[orientation=vertical]:w-2.5
                     data-[orientation=horizontal]:flex-col data-[orientation=horizontal]:h-2.5">
                 <ScrollArea.Thumb className="
-                    flex-1 bg-stone-300 rounded-[10px] cursor-pointer
+                    flex-1 bg-stone-300 dark:bg-stone-700 rounded-[10px] cursor-pointer
                     relative before:content-[''] before:absolute before:top-1/2
                     before:left-1/2 before:-translate-x-1/2 before:-translate-y-1/2
                     before:w-full before:h-full before:min-w-[44px] before:min-h-[44px]
-                    transition-colors hover:bg-stone-400/50" />
+                    transition-colors hover:bg-stone-400/50 dark:hover:bg-stone-600" />
             </ScrollArea.Scrollbar>
         </ScrollArea.Root>
     )

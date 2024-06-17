@@ -1,13 +1,15 @@
 import Image from 'next/image'
 
 import ListItem from './list-item'
+import ChangeTheme from './change-theme'
 
 export default function Header() {
     return (
         <header className="
-            w-full h-20 bg-stone-200/50
+            w-full h-20 bg-stone-200/50 dark:bg-stone-800/50
             flex items-center justify-center
-            border-b-2 border-stone-200">
+            border-b-2 border-stone-200 dark:border-stone-700
+            transition-colors">
             <nav className="w-full h-full max-w-7xl flex items-center justify-between">
                 <div className="flex gap-2 items-center justify-center">
                     <Image
@@ -15,7 +17,7 @@ export default function Header() {
                         src="/icon.svg" alt="Homem em posição meditativa" />
                     <h1 className="text-3xl text-blue-500 font-bold">
                         Medi
-                        <span className="text-stone-900">thoughts</span>
+                        <span className="text-stone-900 dark:text-white transition-colors">thoughts</span>
                     </h1>
                 </div>
 
@@ -24,12 +26,7 @@ export default function Header() {
                     <ListItem url="/meditations" text="Meditações" />
                 </ul>
 
-                {/* <figure className="w-10 h-10 rounded-full cursor-pointer">
-                    <Image
-                        width={100} height={100} quality={80}
-                        src="https://github.com/luca-merighi.png" alt="Foto de Perfil"
-                        className="rounded-full" />
-                </figure> */}
+                <ChangeTheme />
             </nav>
         </header>
     )

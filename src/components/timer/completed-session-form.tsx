@@ -1,50 +1,82 @@
 'use client'
 
-import { useState } from 'react'
+import { useForm, Controller, FormProvider } from 'react-hook-form'
+import * as zod from 'zod'
+import { zodResolver } from '@hookform/resolvers/zod'
+
+import Tiptap from '../tiptap'
 
 import { LuArrowRight } from 'react-icons/lu'
 
-export default function CompletedSessionForm() {
-    const [title, setTitle] = useState('')
-    const [text, setText] = useState('')
+const formSchema = zod.object({
+    title: zod.string().min(1).max(50),
+    description: zod.string().trim()
+})
 
-    const isFormEmpty = text.length === 0 || title.length === 0 ? true : false
+type FormInputs = zod.infer<typeof formSchema>
+
+export default function CompletedSessionForm() {
+    const form = useForm<FormInputs>({
+        resolver: zodResolver(formSchema),
+        mode: 'onChange',
+        defaultValues: {
+            description: ''
+        }
+    })
+
+    const { control, handleSubmit, watch, register } = form
+
+    const title = watch('title')
+    const isFormEmpty = !title
+
+    function handleCreateNewSession() {
+
+    }
 
     return (
         <form
+            onSubmit={handleSubmit(handleCreateNewSession)}
             className="w-[30rem] flex flex-col gap-2">
             <strong
-                className="text-2xl text-stone-800 font-bold">
+                className="text-2xl text-stone-800 font-bold dark:text-white transition-colors">
                 Anote como foi sua sessão!
             </strong>
 
             <input
                 type="text"
-                name="title"
-                id="title"
+                {...register('title')}
                 placeholder="Título para sua sessão"
-                value={title}
-                onChange={(e) => setTitle(e.target.value)}
                 className="
-                    mt-4 p-2 bg-stone-200/50
-                    text-base text-stone-800 font-medium placeholder:text-stone-500
-                    border-2 border-stone-200 rounded-md
+                    mt-4 p-2 bg-stone-200/50 dark:bg-stone-800
+                    text-base text-stone-800 dark:text-stone-100 font-medium placeholder:text-stone-500 dark:placeholder:text-stone-500
+                    border-2 border-stone-200 dark:border-stone-700 rounded-md
                     transition-colors focus:outline-none
-                    focus-visible:border-blue-500" />
+                    focus-visible:border-blue-500 dark:focus-visible:border-blue-500" />
 
-            <textarea
+            <FormProvider {...form}>
+                <Controller
+                    control={control}
+                    name="description"
+                    render={({ field }) => {
+                        return (
+                            <Tiptap
+                                description={field.value}
+                                onChange={field.onChange} />
+                        )
+                    }} />
+            </FormProvider>
+
+            {/* <textarea
                 name="textarea"
                 id="textarea"
-                value={text}
-                onChange={(e) => setText(e.target.value)}
                 placeholder="Descreva seus pensamentos relevantes aqui"
                 className="
-                    h-80 p-2 bg-stone-200/50
-                    text-base text-stone-700 placeholder:text-stone-400
-                    border-2 border-stone-200 rounded-md
-                    resize-none
+                    h-80 p-2 bg-stone-200/50 dark:bg-stone-800
+                    text-base text-stone-700 dark:text-stone-200 placeholder:text-stone-500 dark:placeholder:text-stone-500
+                    border-2 border-stone-200 dark:border-stone-700 rounded-md resize-none
                     transition-colors focus:outline-none
-                    focus-visible:border-blue-500" />
+                    focus-visible:border-blue-500
+                    dark:focus-visible:border-blue-500" /> */}
 
             <button
                 type="submit"
@@ -52,12 +84,12 @@ export default function CompletedSessionForm() {
                 disabled={isFormEmpty}
                 className="
                     flex gap-1 items-center justify-center
-                    w-full py-4 bg-stone-200/50
-                    text-lg text-stone-700 font-medium
-                    border-2 border-stone-200 rounded-md
-                    transition-colors enabled:hover:bg-blue-100/50
+                    w-full py-4 bg-stone-200/50 dark:bg-stone-800
+                    text-lg text-stone-700 dark:text-stone-200 font-medium
+                    border-2 border-stone-200 dark:border-stone-700 rounded-md
+                    transition-colors enabled:hover:bg-blue-100/50 dark:enabled:hover:bg-stone-800
                     enabled:hover:text-blue-500 enabled:hover:border-blue-500
-                    enabled:focus:outline-none enabled:focus-visible:bg-blue-100/50
+                    enabled:focus:outline-none enabled:focus-visible:bg-blue-100/50 dark:enabled:focus-visible:bg-stone-800
                     enabled:focus-visible:text-blue-500 enabled:focus-visible:border-blue-500
                     data-[set=true]:opacity-75 data-[set=true]:cursor-not-allowed">
                 Enviar

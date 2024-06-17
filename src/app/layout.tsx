@@ -2,6 +2,9 @@ import type { Metadata } from 'next'
 import { Inter } from 'next/font/google'
 import './globals.css'
 
+import { ThemeProvider } from '@/contexts/theme'
+import { SessionProvider } from '@/contexts/session'
+
 const inter = Inter({ subsets: ['latin'] })
 
 export const metadata: Metadata = {
@@ -16,8 +19,12 @@ export default function RootLayout({
   children: React.ReactNode
 }>) {
   return (
-    <html lang="pt-BR" className="antialiased">
-      <body className={inter.className}>{children}</body>
-    </html>
+    <ThemeProvider>
+      <SessionProvider>
+        <html lang="pt-BR" className="antialiased">
+          <body className={inter.className}>{children}</body>
+        </html>
+      </SessionProvider>
+    </ThemeProvider>
   )
 }
